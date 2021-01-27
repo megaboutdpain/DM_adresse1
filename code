@@ -5,10 +5,10 @@ using namespace std;
 
 int main() {
     char * IP = (char * )
-    "192.168.20.11";
+    "192.168.20.11";//adresse IP
 
     char * masque = (char * )
-    "255.255.255.0";
+    "255.255.255.0";//Masque réseau
     
     int X, Y, Z, W, A, B, C, D;
     int part1, part2, part3, part4, mask1, mask2, mask3, mask4;
@@ -52,7 +52,7 @@ int main() {
     D = d.to_ulong();
 
     cout << "la premiere adresse disponible est:" << X << "." << Y << "." << Z << "." << "1" << endl;
-    cout << "la derniere adresse disponible est:" << X << "." << Y << "." << Z << "." << "255" << endl;
+    cout << "la derniere adresse disponible est:" << X << "." << Y << "." << Z << "." << bin_comp_m4.to_ulong() << endl;
     cout << "l'adresse de diffusion est:" << A << "." << B << "." << C << "." << D << endl;
-    cout<< "on peut connecter"<< D << "appareils sur le réseau" << endl;
+    cout<< "on peut connecter "<< bin_comp_m4.to_ulong() - 1 << " appareils sur le réseau" << endl;
 }
