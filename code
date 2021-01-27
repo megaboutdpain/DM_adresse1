@@ -1,0 +1,58 @@
+#include <iostream>
+#include <bitset>
+using namespace std;
+
+
+int main() {
+    char * IP = (char * )
+    "192.168.20.11";
+
+    char * masque = (char * )
+    "255.255.255.0";
+    
+    int X, Y, Z, W, A, B, C, D;
+    int part1, part2, part3, part4, mask1, mask2, mask3, mask4;
+    sscanf(IP, "%d.%d.%d.%d", & part1, & part2, & part3, & part4);// on sépare les différentes parties de l'IP
+
+    sscanf(masque, "%d.%d.%d.%d", & mask1, & mask2, & mask3, & mask4);// on sépare les différentes parties du masque
+
+    bitset < 8 > bin_p1(part1);//on passe chaque partie de l'IP en binaire
+    bitset < 8 > bin_p2(part2);
+    bitset < 8 > bin_p3(part3);
+    bitset < 8 > bin_p4(part4);
+
+    bitset < 8 > bin_m1(mask1);//on passe chaque partie du masque en binaire
+    bitset < 8 > bin_m2(mask2);
+    bitset < 8 > bin_m3(mask3);
+    bitset < 8 > bin_m4(mask4);
+
+    bitset < 8 > x(bin_p1 & bin_m1);//on calcule l'IP réseau avec un ET logique en fonction du masque
+    bitset < 8 > y(bin_p2 & bin_m2);
+    bitset < 8 > z(bin_p3 & bin_m3);
+    bitset < 8 > w(bin_p4 & bin_m4);
+
+    X = x.to_ulong();//on repasse les valeurs obtenues en décimal
+    Y = y.to_ulong();
+    Z = z.to_ulong();
+    W = w.to_ulong();
+
+    bitset < 8 > bin_comp_m1 = ~bin_m1;//on calcule le complément du masque
+    bitset < 8 > bin_comp_m2 = ~bin_m2;
+    bitset < 8 > bin_comp_m3 = ~bin_m3;
+    bitset < 8 > bin_comp_m4 = ~bin_m4;
+
+    bitset < 8 > a(bin_p1 | bin_comp_m1);//on calcule les differentes parties de l'adresse de diffusion avec 
+    bitset < 8 > b(bin_p2 | bin_comp_m2);//une fonction OU logique en fonction du complement du masque
+    bitset < 8 > c(bin_p3 | bin_comp_m3);
+    bitset < 8 > d(bin_p4 | bin_comp_m4);
+
+    A = a.to_ulong();//on repasse les valeurs obtenues en décimal
+    B = b.to_ulong();
+    C = c.to_ulong();
+    D = d.to_ulong();
+
+    cout << "la premiere adresse disponible est:" << X << "." << Y << "." << Z << "." << "1" << endl;
+    cout << "la derniere adresse disponible est:" << X << "." << Y << "." << Z << "." << "255" << endl;
+    cout << "l'adresse de diffusion est:" << A << "." << B << "." << C << "." << D << endl;
+    cout<< "on peut connecter"<< D << "appareils sur le réseau" << endl;
+}
